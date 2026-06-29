@@ -1,0 +1,14 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/m/:id", "destination": "/menu.html" }
+  ],
+  "headers": [
+    {
+      "source": "/menus/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    }
+  ]
+}
