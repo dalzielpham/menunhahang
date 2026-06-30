@@ -43,11 +43,20 @@
   .hidden{display:none!important}
 
   /* Thanh dưới */
-  .bottombar{flex:none;display:flex;align-items:center;justify-content:center;gap:10px;
-    height:calc(60px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
+  .bottombar{flex:none;display:flex;align-items:center;gap:6px;
+    height:calc(60px + env(safe-area-inset-bottom));
+    padding:0 8px env(safe-area-inset-bottom);
     background:var(--bar);border-top:1px solid rgba(255,255,255,.06)}
-  .navbtn{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);
+  .bb-left{display:flex;align-items:center;gap:6px}
+  .bb-center{flex:1;display:flex;align-items:center;justify-content:center;gap:8px}
+  .bb-right{display:flex;align-items:center}
+  .navbtn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);
+    text-decoration:none;flex:none;
     color:var(--bar-ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+  .navbtn-mess{color:#0084FF;border-color:rgba(0,132,255,.35);background:rgba(0,132,255,.10)}
+  .navbtn-mess:hover{background:rgba(0,132,255,.20)}
+  .navbtn-call{color:#34C759;border-color:rgba(52,199,89,.35);background:rgba(52,199,89,.10)}
+  .navbtn-call:hover{background:rgba(52,199,89,.20)}
   .navbtn:hover:not(:disabled){background:rgba(255,255,255,.12)}
   .navbtn:disabled{opacity:.3;cursor:default}
   .navbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -73,9 +82,7 @@
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
     </a>
     <div class="title" id="title">Thực đơn<small id="subtitle"></small></div>
-    <a class="iconbtn hidden" id="call" href="#" aria-label="Gọi đặt bàn" title="Gọi đặt bàn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    </a>
+    <span class="iconbtn" aria-hidden="true" style="visibility:hidden"></span>
   </div>
 
   <div class="stage">
@@ -94,16 +101,28 @@
   </div>
 
   <div class="bottombar" id="bottombar">
-    <button class="navbtn" id="prev" aria-label="Trang trước">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
-    </button>
-    <div class="counter"><span id="cur">–</span> <small>/ <span id="total">–</span></small></div>
-    <button class="navbtn" id="next" aria-label="Trang sau">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-    </button>
-    <button class="navbtn" id="zoom-btn" aria-label="Phóng to" title="Phóng to">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
-    </button>
+    <div class="bb-left">
+      <a class="navbtn navbtn-mess hidden" id="mess" target="_blank" rel="noopener" aria-label="Nhắn Messenger" title="Nhắn tin Messenger">
+        <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 7.76C0 3.301 3.493 0 8 0s8 3.301 8 7.76-3.493 7.76-8 7.76c-.81 0-1.586-.107-2.316-.307a.64.64 0 0 0-.427.03l-1.588.702a.64.64 0 0 1-.898-.566l-.044-1.423a.64.64 0 0 0-.215-.456C.956 12.108 0 10.092 0 7.76m5.546-1.459-2.35 3.728c-.225.358.214.761.551.506l2.525-1.916a.48.48 0 0 1 .578-.002l1.869 1.402a1.2 1.2 0 0 0 1.735-.32l2.35-3.728c.226-.358-.214-.761-.551-.506L9.728 7.381a.48.48 0 0 1-.578.002L7.281 5.98a1.2 1.2 0 0 0-1.735.32z"/></svg>
+      </a>
+      <a class="navbtn navbtn-call hidden" id="phone-btn" aria-label="Gọi điện" title="Gọi điện">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+    </div>
+    <div class="bb-center">
+      <button class="navbtn" id="prev" aria-label="Trang trước">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="counter"><span id="cur">–</span> <small>/ <span id="total">–</span></small></div>
+      <button class="navbtn" id="next" aria-label="Trang sau">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+    <div class="bb-right">
+      <button class="navbtn" id="zoom-btn" aria-label="Phóng to" title="Phóng to">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg>
+      </button>
+    </div>
   </div>
 
   <!-- Lightbox phóng to -->
@@ -151,9 +170,16 @@
   $('title').firstChild.textContent = rest.name || 'Thực đơn';
   if (cfg.brandName) $('subtitle').textContent = cfg.brandName;
   if (rest.phone){
-    var call = $('call');
-    call.href = 'tel:' + String(rest.phone).replace(/\s/g,'');
-    call.classList.remove('hidden');
+    var ph = $('phone-btn');
+    ph.href = 'tel:' + String(rest.phone).replace(/\s/g,'');
+    ph.classList.remove('hidden');
+  }
+  if (rest.messenger){
+    var ms = $('mess');
+    var mUrl = String(rest.messenger).trim();
+    if (!/^https?:\/\//i.test(mUrl)) mUrl = 'https://' + mUrl.replace(/^\/+/, '');
+    ms.href = mUrl;
+    ms.classList.remove('hidden');
   }
 
   var images = [];      // dataURL của từng trang
@@ -199,8 +225,8 @@
       pageFlip = new St.PageFlip(bookEl, {
         width: 480, height: Math.round(480*ratio),
         size: 'stretch',
-        minWidth: 200, maxWidth: 2000,
-        minHeight: Math.round(200*ratio), maxHeight: Math.round(2000*ratio),
+        minWidth: 300, maxWidth: 2000,
+        minHeight: 120, maxHeight: 2000,
         drawShadow: true, maxShadowOpacity: 0.4,
         showCover: false, usePortrait: true, autoSize: false,
         mobileScrollSupport: false, flippingTime: 650, swipeDistance: 18
@@ -229,7 +255,8 @@
   function fitBook(){
     var stage = document.querySelector('.stage');
     var aw = stage.clientWidth - 20, ah = stage.clientHeight - 20;
-    var w = Math.min(aw, ah / ratio, 720);
+    // Giữ chiều rộng dưới 2×minWidth (600) để page-flip luôn hiển thị 1 trang
+    var w = Math.min(aw, ah / ratio, 560);
     if (w < 120) w = 120;
     bookEl.style.width = Math.floor(w) + 'px';
     bookEl.style.height = Math.floor(w * ratio) + 'px';
